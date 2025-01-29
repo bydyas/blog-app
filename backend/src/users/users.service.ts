@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   async findOneWithProfileById(id: string): Promise<User | null> {
-    const user = await this.usersRepository.findOne({ where: { id }, relations: ['profile'] });
+    const user = await this.usersRepository.findOne({ where: { id }, relations: ['profile', 'profile.posts'] });
     delete user['password'];
     return user;
   }
