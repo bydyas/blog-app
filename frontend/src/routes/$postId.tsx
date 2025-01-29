@@ -41,11 +41,15 @@ function RouteComponent() {
         <figure className='relative'>
           <img className='w-full h-100 object-cover' src={post.previewSrc} alt="" />
           <figcaption className='absolute top-[50%] left-20 -translate-y-[50%]'>
-            <h2 className='text-7xl text-white font-extrabold uppercase drop-shadow-md'>{post.title}</h2>
+            <h2 className='text-7xl text-white font-extrabold uppercase drop-shadow-md text-primary'>{post.title}</h2>
           </figcaption>
         </figure>
       </section>
-      <section className='my-3 text-2xl' dangerouslySetInnerHTML={{ __html: post.body }}/>
+      <section className='my-5 text-2xl text-secondary' dangerouslySetInnerHTML={{ __html: post.body }}/>
+      <section className='pt-3 border-t border-accent'>
+        <h6 className='font-semibold text-2xl text-primary'>Comments</h6>
+        <p className='my-2 text-md text-secondary'>No written comments.</p>
+      </section>
     </main>
   )
 }
