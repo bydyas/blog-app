@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from "typeorm"
+import { Post } from "./post.entity"
 
 @Entity()
 export class Profile {
@@ -10,4 +11,7 @@ export class Profile {
 
   @Column()
   lastName: string
+
+  @OneToMany(() => Post, (post) => post.profile, { cascade: true, eager: true })
+  posts: Post[]
 }
