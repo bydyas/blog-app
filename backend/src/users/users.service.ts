@@ -10,13 +10,15 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) { }
 
-  async createOne(userDto: any): Promise<any> {
+  createOne(userDto: any): Promise<any> {
     const user = this.usersRepository.create(userDto);
     return this.usersRepository.save(user);
   }
 
-  findOneById(id: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ id });
+  async findOneWithProfileById(id: string): Promise<User | null> {
+    const user = await this.usersRepository.findOne({ where: { id }, relations: ['profile'] });
+    delete user['password'];
+    return user;
   }
 
   findOneByUsername(username: string): Promise<User | null> {

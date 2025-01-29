@@ -39,7 +39,7 @@ export class AuthService {
     };
   }
 
-  async getProfile(id: string) {
-    return this.usersService.findOneById(id);
+  getProfile(id: string) {
+    return this.usersService.findOneWithProfileById(id);
   }
 }
