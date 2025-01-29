@@ -28,6 +28,15 @@ class PostsService {
       throw (error as AxiosError)?.response?.data
     }
   }
+
+  async removeOne(id: string) {
+    try {
+      const response = await instance.delete(`/posts/${id}`);
+      return response.data;
+    } catch (error) {
+      throw (error as AxiosError)?.response?.data
+    }
+  }
 }
 
 export const postsService = new PostsService();

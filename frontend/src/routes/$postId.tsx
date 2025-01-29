@@ -6,7 +6,7 @@ import { Preloader } from '../components/preloader'
 
 const postQueryOptions = (postId: string) =>
   queryOptions({
-    queryKey: ['post'],
+    queryKey: [`post-${postId}`],
     queryFn: () => postsService.findOne(postId),
   })
 
