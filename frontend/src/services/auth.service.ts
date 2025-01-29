@@ -14,7 +14,6 @@ class AuthService {
       })
       return response.data;
     } catch (error) {
-      console.error('[Auth]: ', error)
       throw (error as AxiosError)?.response?.data
     }
   }
@@ -24,7 +23,6 @@ class AuthService {
       const response = await instance.get(`/auth/profile`)
       return response.data;
     } catch (error) {
-      console.error('[Auth]: ', error)
       throw (error as AxiosError)?.response?.data
     }
   }

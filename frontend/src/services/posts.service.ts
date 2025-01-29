@@ -1,27 +1,31 @@
-class PostsService {
-  #BASE_URL = `${import.meta.env.VITE_API_URL}/posts`;
+import { AxiosError } from "axios";
+import { instance } from "../libs/axios";
 
+class PostsService {
   async findAll() {
     try {
-      const res = await fetch(`${this.#BASE_URL}/`);
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      return res.json();
+      const response = await instance.get('/posts');
+      return response.data;
     } catch (error) {
-      console.error(error);
+      throw (error as AxiosError)?.response?.data
     }
   }
 
   async findOne(id: string) {
     try {
-      const res = await fetch(`${this.#BASE_URL}/${id}`);
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      return res.json();
+      const response = await instance.get(`/posts/${id}`);
+      return response.data;
     } catch (error) {
-      console.error(error);
+      throw (error as AxiosError)?.response?.data
+    }
+  }
+
+  async createOne(data: any) {
+    try {
+      const response = await instance.post(`/posts`, data);
+      return response.data;
+    } catch (error) {
+      throw (error as AxiosError)?.response?.data
     }
   }
 }

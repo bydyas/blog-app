@@ -80,7 +80,7 @@ function RouteComponent() {
       {errors.password && <span className='text-red-500 mb-1'>This field is required (min length = 6)</span>}
       <input
         disabled={mutation.isPending}
-        className='mt-4 w-full cursor-pointer bg-accent text-white px-3 py-2 rounded' 
+        className='mt-4 w-full cursor-pointer bg-accent text-white px-3 py-2 rounded hover:opacity-[75%]' 
         type="submit"
         value={type === 'login' ? "Log In" : "Register"}
       />

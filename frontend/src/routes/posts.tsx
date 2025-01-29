@@ -36,7 +36,7 @@ function RouteComponent() {
     <main>
       <ul className="grid grid-cols-3 gap-[32px]">
         {data.map((v: IPost) => (
-          <li className="mt-2" key={v.id}>
+          <li key={v.id}>
             <PreviewPost {...v} />
           </li>
         ))}

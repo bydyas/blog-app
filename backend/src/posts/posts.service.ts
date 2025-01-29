@@ -4,12 +4,15 @@ import { Post } from 'src/entities/post.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { UpdatePostDto } from './dtos/update-post.dto';
+import { Profile } from 'src/entities/profile.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
+    @InjectRepository(Profile)
+    private profileRepository: Repository<Profile>,
   ) { }
 
   findAll(): Promise<Post[]> {
@@ -20,8 +23,10 @@ export class PostsService {
     return this.postsRepository.findOneBy({ id });
   }
 
-  createOne(createPostDto: CreatePostDto) {
+  async createOne(createPostDto: CreatePostDto) {
     const post = this.postsRepository.create(createPostDto);
+    const profile = await this.profileRepository.findOneBy({ id: createPostDto.profileId });
+    post.profile = profile;
     return this.postsRepository.save(post);
   }
 

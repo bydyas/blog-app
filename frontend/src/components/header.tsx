@@ -13,7 +13,7 @@ export const Header = () => {
         )}
         <nav className='flex-grow flex justify-end gap-[20px]'>
           <Link className='text-[20px] text-primary' to="/posts">Community Posts</Link>
-          <Link className='text-[20px] text-primary' to="/posts">Write Your Post</Link>
+          <Link className='text-[20px] text-primary' to="/editor">Write Your Post</Link>
         </nav>
       </div>
       <div className='mt-[50px] mb-[30px] text-center border-t border-b border-secondary'>

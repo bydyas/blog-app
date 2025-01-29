@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthStore & AuthActions>()(
       }),
       {
         name: 'auth-store',
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
       }
     ),
     {

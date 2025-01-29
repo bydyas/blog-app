@@ -27,7 +27,7 @@ export const PreviewPost: React.FC<IPost> = ({
             {profile.firstName} {profile.lastName} &#x2022; {publishedAt}
           </p>
           <h2 className='flex gap-4 justify-between'>
-            <span className='text-2xl font-semibold line-clamp-2'>{title}</span>
+            <span className='text-2xl font-semibold line-clamp-1'>{title}</span>
             <img className='size-6' src={ArrowImg} alt='' />
           </h2>
           <div className='mt-3 text-secondary line-clamp-2' dangerouslySetInnerHTML={{ __html: body }} />
