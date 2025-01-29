@@ -21,6 +21,17 @@ export const Route = createFileRoute('/posts')({
 function RouteComponent() {
   const { data } = useSuspenseQuery(postsQueryOptions)
 
+  if (!data.length) {
+    return (
+      <main className='flex-grow flex items-center justify-center'>
+        <Link className='text-2xl' to='/'>
+          No published posts yet...
+          <span className='text-accent'>Be first!</span>
+        </Link>
+      </main>
+    )
+  }
+
   return (
     <main>
       <ul className='grid grid-cols-3 gap-[32px]'>
