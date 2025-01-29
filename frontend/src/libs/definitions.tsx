@@ -15,3 +15,13 @@ export interface IPost {
   updatedAt: Date;
   deletedAt: Date;
 }
+
+export type SignIn = {
+  username: string;
+  password: string;
+}
+
+export type SignUp = {
+  firstName: string;
+  lastName: string;
+} & SignIn;

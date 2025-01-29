@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, ValidateNested, IsStrongPassword, IsEmail, MinLength } from 'class-validator';
+import { IsNotEmpty, ValidateNested, MinLength } from 'class-validator';
 
 class Profile {
   @IsNotEmpty()
@@ -17,11 +17,7 @@ export class SignUpDto {
   username: string;
 
   @IsNotEmpty()
-  @IsStrongPassword({
-    minLength: 6,
-    minUppercase: 1,
-    minSymbols: 1,
-  })
+  @MinLength(6)
   password: string;
 
   @Type(() => Profile)

@@ -11,15 +11,29 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ProfileImport } from './routes/profile'
 import { Route as PostsImport } from './routes/posts'
+import { Route as AuthImport } from './routes/auth'
 import { Route as PostIdImport } from './routes/$postId'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const ProfileRoute = ProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const PostsRoute = PostsImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,11 +67,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostIdImport
       parentRoute: typeof rootRoute
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/posts': {
       id: '/posts'
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileImport
       parentRoute: typeof rootRoute
     }
   }
@@ -68,41 +96,51 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$postId': typeof PostIdRoute
+  '/auth': typeof AuthRoute
   '/posts': typeof PostsRoute
+  '/profile': typeof ProfileRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$postId': typeof PostIdRoute
+  '/auth': typeof AuthRoute
   '/posts': typeof PostsRoute
+  '/profile': typeof ProfileRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/$postId': typeof PostIdRoute
+  '/auth': typeof AuthRoute
   '/posts': typeof PostsRoute
+  '/profile': typeof ProfileRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$postId' | '/posts'
+  fullPaths: '/' | '/$postId' | '/auth' | '/posts' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$postId' | '/posts'
-  id: '__root__' | '/' | '/$postId' | '/posts'
+  to: '/' | '/$postId' | '/auth' | '/posts' | '/profile'
+  id: '__root__' | '/' | '/$postId' | '/auth' | '/posts' | '/profile'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PostIdRoute: typeof PostIdRoute
+  AuthRoute: typeof AuthRoute
   PostsRoute: typeof PostsRoute
+  ProfileRoute: typeof ProfileRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PostIdRoute: PostIdRoute,
+  AuthRoute: AuthRoute,
   PostsRoute: PostsRoute,
+  ProfileRoute: ProfileRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +155,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/$postId",
-        "/posts"
+        "/auth",
+        "/posts",
+        "/profile"
       ]
     },
     "/": {
@@ -126,8 +166,14 @@ export const routeTree = rootRoute
     "/$postId": {
       "filePath": "$postId.tsx"
     },
+    "/auth": {
+      "filePath": "auth.tsx"
+    },
     "/posts": {
       "filePath": "posts.tsx"
+    },
+    "/profile": {
+      "filePath": "profile.tsx"
     }
   }
 }
