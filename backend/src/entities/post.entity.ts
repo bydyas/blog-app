@@ -15,7 +15,7 @@ export class Post {
   @Column()
   body: string
 
-  @ManyToOne(() => Profile, (profile) => profile.posts)
+  @ManyToOne(() => Profile, (profile) => profile.posts, { eager: true })
   profile: Profile
 
   @CreateDateColumn()

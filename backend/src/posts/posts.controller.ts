@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { RemovePostDto } from './dtos/remove-post.dto';
@@ -7,6 +7,11 @@ import { UpdatePostDto } from './dtos/update-post.dto';
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) { }
+
+  @Get()
+  findAll() {
+    return this.postsService.findAll();
+  }
 
   @Post()
   createOne(@Body() createPostDto: CreatePostDto) {

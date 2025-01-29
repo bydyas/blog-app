@@ -12,6 +12,6 @@ export class Profile {
   @Column()
   lastName: string
 
-  @OneToMany(() => Post, (post) => post.profile, { cascade: true, eager: true })
+  @OneToMany(() => Post, (post) => post.profile, { cascade: true })
   posts: Post[]
 }
