@@ -16,6 +16,10 @@ export class PostsService {
     return this.postsRepository.find();
   }
 
+  findOne(id: string): Promise<Post> {
+    return this.postsRepository.findOneBy({ id });
+  }
+
   createOne(createPostDto: CreatePostDto) {
     const post = this.postsRepository.create(createPostDto);
     return this.postsRepository.save(post);

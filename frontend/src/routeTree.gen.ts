@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PostsImport } from './routes/posts'
+import { Route as PostIdImport } from './routes/$postId'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -19,6 +20,12 @@ import { Route as IndexImport } from './routes/index'
 const PostsRoute = PostsImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostIdRoute = PostIdImport.update({
+  id: '/$postId',
+  path: '/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,6 +46,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/$postId': {
+      id: '/$postId'
+      path: '/$postId'
+      fullPath: '/$postId'
+      preLoaderRoute: typeof PostIdImport
+      parentRoute: typeof rootRoute
+    }
     '/posts': {
       id: '/posts'
       path: '/posts'
@@ -53,36 +67,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$postId': typeof PostIdRoute
   '/posts': typeof PostsRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$postId': typeof PostIdRoute
   '/posts': typeof PostsRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$postId': typeof PostIdRoute
   '/posts': typeof PostsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/posts'
+  fullPaths: '/' | '/$postId' | '/posts'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/posts'
-  id: '__root__' | '/' | '/posts'
+  to: '/' | '/$postId' | '/posts'
+  id: '__root__' | '/' | '/$postId' | '/posts'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PostIdRoute: typeof PostIdRoute
   PostsRoute: typeof PostsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PostIdRoute: PostIdRoute,
   PostsRoute: PostsRoute,
 }
 
@@ -97,11 +116,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/$postId",
         "/posts"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/$postId": {
+      "filePath": "$postId.tsx"
     },
     "/posts": {
       "filePath": "posts.tsx"

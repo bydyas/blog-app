@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { postsService } from '../services/posts.service'
 import { PreviewPost } from '../components/preview-post'
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/posts')({
   component: RouteComponent,
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(postsQueryOptions),
-  pendingComponent: () => <Preloader />
+  pendingComponent: () => <Preloader />,
 })
 
 function RouteComponent() {
@@ -23,10 +23,10 @@ function RouteComponent() {
 
   if (!data.length) {
     return (
-      <main className='flex-grow flex items-center justify-center'>
-        <Link className='text-2xl' to='/'>
+      <main className="flex-grow flex items-center justify-center">
+        <Link className="text-2xl" to="/">
           No published posts yet...
-          <span className='text-accent'>Be first!</span>
+          <span className="text-accent">Be first!</span>
         </Link>
       </main>
     )
@@ -34,9 +34,9 @@ function RouteComponent() {
 
   return (
     <main>
-      <ul className='grid grid-cols-3 gap-[32px]'>
+      <ul className="grid grid-cols-3 gap-[32px]">
         {data.map((v: IPost) => (
-          <li className='mt-2' key={v.id}>
+          <li className="mt-2" key={v.id}>
             <PreviewPost {...v} />
           </li>
         ))}

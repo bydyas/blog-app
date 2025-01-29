@@ -13,6 +13,11 @@ export class PostsController {
     return this.postsService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param() params: { id: string }) {
+    return this.postsService.findOne(params.id);
+  }
+
   @Post()
   createOne(@Body() createPostDto: CreatePostDto) {
     return this.postsService.createOne(createPostDto);

@@ -1,7 +1,7 @@
+import React from "react";
 import { Link } from "@tanstack/react-router"
 
 import ArrowImg from '../assets/icons/arrow.svg';
-import React from "react";
 import { IPost } from "../libs/definitions";
 
 export const PreviewPost: React.FC<IPost> = ({
@@ -19,12 +19,12 @@ export const PreviewPost: React.FC<IPost> = ({
   });
 
   return (
-    <Link to={`/`}>
-      <figure>
+    <Link to="/$postId" params={{ postId: id }}>
+      <figure className="pb-3 border-b border-transparent hover:border-accent">
         <img className='max-h-60 min-h-60 w-full object-cover' src={previewSrc} alt='' />
         <figcaption className='mt-[32px]'>
           <p className='mb-3 text-sm text-accent font-semibold'>
-            {profile.firstName} {profile.lastName}, {publishedAt}
+            {profile.firstName} {profile.lastName} &#x2022; {publishedAt}
           </p>
           <h2 className='flex gap-4 justify-between'>
             <span className='text-2xl font-semibold line-clamp-2'>{title}</span>

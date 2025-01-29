@@ -12,6 +12,18 @@ class PostsService {
       console.error(error);
     }
   }
+
+  async findOne(id: string) {
+    try {
+      const res = await fetch(`${this.#BASE_URL}/${id}`);
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export const postsService = new PostsService();
