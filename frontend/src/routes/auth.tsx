@@ -18,7 +18,7 @@ export const Route = createFileRoute('/auth')({
   },
   beforeLoad: () => {
     const isAuth = useAuthStore.getState().isAuth;
-    if (isAuth) throw redirect({ to: "/" });
+    if (isAuth) throw redirect({ to: "/profile" });
   }
 })
 
@@ -38,7 +38,7 @@ function RouteComponent() {
     },
     onSuccess: ({ access_token }) => {
       setAccessToken(access_token)
-      navigate({ to: '/' })
+      navigate({ to: '/profile' })
     },
   })
 

@@ -4,7 +4,6 @@ import { postsService } from '../services/posts.service'
 import { IPost } from '../libs/definitions'
 import { Preloader } from '../components/preloader'
 import { Comments } from '../components/Comments'
-import { useAuthStore } from '../stores/useAuthStore'
 
 const postQueryOptions = (postId: string) =>
   queryOptions({
@@ -20,7 +19,6 @@ export const Route = createFileRoute('/$postId')({
 
 function RouteComponent() {
   const { postId } = Route.useParams()
-  const isAuth = useAuthStore((state) => state.isAuth)
   const { data } = useSuspenseQuery(postQueryOptions(postId))
   const { profile, ...post } = data as IPost;
 
@@ -48,12 +46,7 @@ function RouteComponent() {
         </figure>
       </section>
       <section className='my-5 text-2xl text-secondary' dangerouslySetInnerHTML={{ __html: post.body }}/>
-      <Comments 
-        data={post.comments} 
-        canSend={isAuth}
-        postId={postId}
-        profileId={profile.id}
-      />
+      <Comments data={post.comments} postId={postId} />
     </main>
   )
 }

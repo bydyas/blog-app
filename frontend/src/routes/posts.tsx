@@ -35,7 +35,7 @@ function RouteComponent() {
   return (
     <main>
       <ul className="grid grid-cols-3 gap-[32px]">
-        {data.map((v: IPost) => (
+        {data.reverse().map((v: IPost) => (
           <li key={v.id}>
             <PreviewPost {...v} />
           </li>

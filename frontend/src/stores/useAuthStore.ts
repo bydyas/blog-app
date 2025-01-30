@@ -4,11 +4,13 @@ import { instance } from '../libs/axios';
 
 type AuthStore = {
   accessToken: string | undefined;
+  currentProfileId: string | undefined;
   isAuth: boolean;
 }
 
 type AuthActions = {
   setAccessToken: (accessToken: string | undefined) => void;
+  setCurrentProfileId: (profileId: string | undefined) => void;
   clearAccessToken: () => void;
 }
 
@@ -17,6 +19,7 @@ export const useAuthStore = create<AuthStore & AuthActions>()(
     persist(
       (set) => ({
         accessToken: undefined,
+        currentProfileId: undefined,
         isAuth: false,
         setAccessToken: (accessToken: string | undefined) => {
           instance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
@@ -25,7 +28,10 @@ export const useAuthStore = create<AuthStore & AuthActions>()(
         clearAccessToken: () => {
           delete instance.defaults.headers.common["Authorization"];
           return set({ accessToken: undefined, isAuth: false });
-        }
+        },
+        setCurrentProfileId: (profileId: string | undefined) => {
+          return set({ currentProfileId: profileId });
+        },
       }),
       {
         name: 'auth-store',

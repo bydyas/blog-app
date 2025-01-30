@@ -7,6 +7,7 @@ import { Preloader } from '../components/preloader';
 import { PreviewPost } from '../components/preview-post';
 import { IPost } from '../libs/definitions';
 import { postsService } from '../services/posts.service';
+import { useEffect } from 'react';
 
 const profileQueryOptions = queryOptions({
   queryKey: ['profile'],
@@ -32,6 +33,9 @@ export const Route = createFileRoute('/profile')({
 function RouteComponent() {
   const { data } = useSuspenseQuery(profileQueryOptions)
   const context = useRouteContext({ from: '/profile' })
+  const setCurrentProfileId = useAuthStore((state) => state.setCurrentProfileId)
+
+  useEffect(() => setCurrentProfileId(data.profile.id), [])
   
   const fullName = `${data.profile.firstName} ${data.profile.lastName}`
 
