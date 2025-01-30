@@ -3,6 +3,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { postsService } from '../services/posts.service'
 import { IPost } from '../libs/definitions'
 import { Preloader } from '../components/preloader'
+import { Comments } from '../components/Comments'
+import { useAuthStore } from '../stores/useAuthStore'
 
 const postQueryOptions = (postId: string) =>
   queryOptions({
@@ -11,14 +13,14 @@ const postQueryOptions = (postId: string) =>
   })
 
 export const Route = createFileRoute('/$postId')({
-  loader: ({ context, params }) =>
-    context.queryClient.ensureQueryData(postQueryOptions(params.postId)),
+  loader: ({ context, params }) => context.queryClient.ensureQueryData(postQueryOptions(params.postId)),
   component: RouteComponent,
   pendingComponent: () => <Preloader />,
 })
 
 function RouteComponent() {
   const { postId } = Route.useParams()
+  const isAuth = useAuthStore((state) => state.isAuth)
   const { data } = useSuspenseQuery(postQueryOptions(postId))
   const { profile, ...post } = data as IPost;
 
@@ -46,10 +48,12 @@ function RouteComponent() {
         </figure>
       </section>
       <section className='my-5 text-2xl text-secondary' dangerouslySetInnerHTML={{ __html: post.body }}/>
-      <section className='pt-3 border-t border-accent'>
-        <h6 className='font-semibold text-2xl text-primary'>Comments</h6>
-        <p className='my-2 text-md text-secondary'>No written comments.</p>
-      </section>
+      <Comments 
+        data={post.comments} 
+        canSend={isAuth}
+        postId={postId}
+        profileId={profile.id}
+      />
     </main>
   )
 }

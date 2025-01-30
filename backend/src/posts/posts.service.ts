@@ -20,7 +20,7 @@ export class PostsService {
   }
 
   findOne(id: string): Promise<Post> {
-    return this.postsRepository.findOneBy({ id });
+    return this.postsRepository.findOne({ where: { id }, relations: ['comments'] });
   }
 
   async createOne(createPostDto: CreatePostDto) {

@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToMany } from "typeorm"
 import { Profile } from "./profile.entity"
+import { Comment } from "./comment.entity"
 
 @Entity()
 export class Post {
@@ -17,6 +18,9 @@ export class Post {
 
   @ManyToOne(() => Profile, (profile) => profile.posts, { eager: true })
   profile: Profile
+
+  @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
+  comments: Comment[]
 
   @CreateDateColumn()
   createdAt: Date;

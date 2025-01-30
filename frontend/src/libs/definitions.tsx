@@ -5,12 +5,22 @@ export interface IProfile {
   posts: IPost[];
 }
 
+export interface IComment {
+  id: string;
+  text: string;
+  profile: IProfile;
+  post: IPost;
+  createdAt: Date;
+}
+
+
 export interface IPost {
   id: string;
   title: string;
   previewSrc: string;
   body: string;
   profile: IProfile;
+  comments: IComment[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
