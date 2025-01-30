@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthStore & AuthActions>()(
         },
         clearAccessToken: () => {
           delete instance.defaults.headers.common["Authorization"];
-          return set({ accessToken: undefined, isAuth: false });
+          return set({ accessToken: undefined, currentProfileId: undefined, isAuth: false });
         },
         setCurrentProfileId: (profileId: string | undefined) => {
           return set({ currentProfileId: profileId });
