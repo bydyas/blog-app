@@ -1,6 +1,19 @@
 
 ## Hi, Developer!
 
+Backend uses:
+ - Nest.js
+ - PosgteSQL (Docker)
+ - TypeORM
+
+Front uses:
+ - React.js + TypeScript
+ - Tanstack Router + Query
+ - Axios
+ - Tailwind
+ - Zustand
+ - React Hook Form
+
 ![Preview](image.png)
 
 ## Backend setup:
