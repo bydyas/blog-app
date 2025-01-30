@@ -24,7 +24,7 @@ function RouteComponent() {
   if (!data.length) {
     return (
       <main className="flex-grow flex items-center justify-center">
-        <Link className="text-2xl" to="/">
+        <Link className="text-2xl" to="/editor">
           No published posts yet...
           <span className="text-accent">Be first!</span>
         </Link>

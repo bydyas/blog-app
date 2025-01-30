@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,6 +17,9 @@ export class UsersService {
 
   async findOneWithProfileById(id: string): Promise<User | null> {
     const user = await this.usersRepository.findOne({ where: { id }, relations: ['profile', 'profile.posts'] });
+    if (!user) {
+      throw new BadRequestException('Invalid profile id.')
+    }
     delete user['password'];
     return user;
   }
